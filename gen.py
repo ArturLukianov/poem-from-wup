@@ -4,6 +4,7 @@ import parser
 import random
 
 ce = 6 # Количество слогов
+length = 8 # Длина в строках
 tr = 0 # Тип рифмы
 
 allowed_chars = 'абвгдёежзийклмнопрстуфхцчшщыъьэюя,-'
@@ -66,9 +67,10 @@ for sent in sentences:
         syls[s] = []
     syls[s].append(sent)
 
+'''
 for i in sorted(syls.keys()):
     print('Предложений из', i, 'слогов:', len(syls[i]))
-
+'''
 
 pl = 2 # Длина конца
 
@@ -76,7 +78,7 @@ if tr == 0:
     res = []
     res.append(random.choice(syls[ce]))
 
-    for i in range(7):
+    for i in range(length - 1):
         ending = res[-1][-pl:]
         ok = []
         for j in syls[ce]:
@@ -86,4 +88,15 @@ if tr == 0:
 
     print('\n'.join(res))
 elif tr == 1:
-    pass
+    res = []
+    res.append(random.choice(syls[ce]))
+    res.append(random.choice(syls[ce]))
+
+    for i in range(length - 2):
+        ending = res[-2][-pl:]
+        ok = []
+        for j in syls[ce]:
+            if j.endswith(ending):
+                ok.append(j)
+        res.append(random.choice(ok))
+    print('\n'.join(res))
